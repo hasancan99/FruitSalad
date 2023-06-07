@@ -26,7 +26,8 @@ const addFruit = (fruit) =>{
 
 const addImage = (fruit) => {
     const img = document.createElement('img')
-    img.src = `${fruit.hits[0].userImageURL}`
+    img.src = `${fruit.hits[0].webformatURL}`
+    console.log(fruit.hits[0])
     fruitList.appendChild(img)
 }
 
