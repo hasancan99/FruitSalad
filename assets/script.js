@@ -39,7 +39,7 @@ const addImage = (fruit) => {
 
 const fetchFruitData = async (fruit) =>{          //this fetch function has better readabilty and better error handling. Also you don't have to chain together the then functions
     try{
-        const resp = await fetch(`https://fruity-api.onrender.com/api/fruits/${fruit}`)
+        const resp = await fetch(`https://laisfruitapi.onrender.com/fruits/${fruit}`)
         if (resp.ok){
             const data = await resp.json()
             addFruit(data)
