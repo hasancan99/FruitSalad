@@ -17,8 +17,17 @@ const addFruit = (fruit) =>{
         fruitNutrition.textContent= "Total Calories " + cal
     },{once: true})  
     fruitList.appendChild(li)
+
+    
+
     cal+= fruit.nutritions.calories
     fruitNutrition.textContent= cal
+}
+
+const addImage = (fruit) => {
+    const img = document.createElement('img')
+    img.src = `${fruit.hits[0].userImageURL}`
+    fruitList.appendChild(img)
 }
 
 // const fetchFruitData = (fruit)=>{
@@ -28,16 +37,29 @@ const addFruit = (fruit) =>{
 //         .catch((e)=> console.log(e))
 // }
 
-const fetchFruitData = async (fruit) =>{          //this fetch function has better readibilty and better error handling. Also you don't have to chain together the then functions
+const fetchFruitData = async (fruit) =>{          //this fetch function has better readabilty and better error handling. Also you don't have to chain together the then functions
     try{
         const resp = await fetch(`https://laisfruitapi.onrender.com/fruits/${fruit}`)
         if (resp.ok){
             const data = await resp.json()
             addFruit(data)
         }else{
-            throw "Erro: http status code = " + resp.status
+            throw "Error: http status code = " + resp.status
         }
     }catch (err){
+        console.log(err)
+    }
+}
+
+const fetchFruitImage = async(fruit) => {
+    try {
+        const resp = await fetch(`https://pixabay.com/api/?key=37050631-94e3049955c2bae83580c342b&q=${fruit}&image_type=photo`)
+        if (resp.ok) {
+            const data = await resp.json()
+            addImage(data)
+        }
+
+    } catch (err) {
         console.log(err)
     }
 }
@@ -45,6 +67,7 @@ const fetchFruitData = async (fruit) =>{          //this fetch function has bett
 const extractFruit = (e) => {
     e.preventDefault()
     fetchFruitData(e.target.fruitInput.value)
+    fetchFruitImage(e.target.fruitInput.value)
     e.target.fruitInput.value = "" //this replaces what has been typed with an empty string
     
 }
