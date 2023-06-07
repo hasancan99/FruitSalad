@@ -17,6 +17,9 @@ const addFruit = (fruit) =>{
         fruitNutrition.textContent= "Total Calories " + cal
     },{once: true})  
     fruitList.appendChild(li)
+
+    
+
     cal+= fruit.nutritions.calories
     fruitNutrition.textContent= cal
 }
@@ -35,9 +38,21 @@ const fetchFruitData = async (fruit) =>{          //this fetch function has bett
             const data = await resp.json()
             addFruit(data)
         }else{
-            throw "Erro: http status code = " + resp.status
+            throw "Error: http status code = " + resp.status
         }
     }catch (err){
+        console.log(err)
+    }
+}
+
+const fetchFruitImage = async(fruit) => {
+    try {
+        const resp = await fetch(`https://pixabay.com/api/?key=37050631-94e3049955c2bae83580c342b&q=${fruit}&image_type=photo`)
+        if (resp.ok) {
+            const data = await resp.json()
+        }
+
+    } catch (err) {
         console.log(err)
     }
 }
